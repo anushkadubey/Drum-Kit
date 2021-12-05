@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="drumkit.css" rel="stylesheet" />
+    <title>Drum Kit</title>
+</head>
+<body>
+    <div class="page-container">
+        <h1>Press the keys on your Keyboard to play the drums!</h1>
+            <div class="keys">
+                <div data-key="72" class="key">
+                    <small>H</small>
+                    <span class="sound">tuk</span>
+                </div>
+                <div data-key="73" class="key">
+                    <small>I</small>
+                    <span class="sound">ride</span>
+                </div>
+                <div data-key="74" class="key">
+                    <small>J</small>
+                    <span class="sound">snare</span>
+                </div>
+                <div data-key="75" class="key">
+                    <small>K</small>
+                    <span class="sound">clap</span>
+                </div>
+                <div data-key="76" class="key">
+                    <small>L</small>
+                    <span class="sound">floortom</span>
+                </div>
+                <div data-key="77" class="key">
+                    <small>M</small>
+                    <span class="sound">kick</span>
+                </div>
+                <div data-key="78" class="key">
+                    <small>N</small>
+                    <span class="sound">hihat</span>
+                </div>
+                <div data-key="85" class="key">
+                    <small>U</small>
+                    <span class="sound">crash</span>
+                </div>
+            </div>
+            <div class="audios">
+                <audio data-key="72" src="audio/audio_h-tuk.wav"></audio>
+                <audio data-key="73" src="audio/audio_i-ride.wav"></audio>
+                <audio data-key="74" src="audio/audio_j-snare.wav"></audio>
+                <audio data-key="75" src="audio/audio_k-clap.wav"></audio>
+                <audio data-key="76" src="audio/audio_l-floortom.wav"></audio>
+                <audio data-key="77" src="audio/audio_m-kick.wav"></audio>
+                <audio data-key="78" src="audio/audio_n-hihat.wav"></audio>
+                <audio data-key="85" src="audio/audio_u-crash.wav"></audio>
+            </div>
+    </div>
+    
+<script>
+
+    function playSound(e) {
+    const sound = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+    const key = document.querySelector(`div[data-key="${e.keyCode}"]`);
+    if (!sound) return;
+    sound.currentTime = 0;
+    sound.play();
+    key.classList.add('playing');
+    }
+
+    function removeTransition(e) {
+    if (e.propertyName !== 'transform') return;
+    e.target.classList.remove('playing');
+    }
+    
+    const keys = document.querySelectorAll('.key');
+    keys.forEach((key) => key.addEventListener('transitionend', removeTransition));
+    window.addEventListener("keydown", playSound)
+    
+</script>
+</body>
+</html>
